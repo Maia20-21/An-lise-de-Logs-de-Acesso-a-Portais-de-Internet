@@ -56,7 +56,7 @@ def pags_mais_acessadas(registros):
     mais_acessadas = contagem_paginas.most_common(3)
     return mais_acessadas
 
-nome_arquivo = input('Digite o nome do arquivo que deseja acessar: ')
+nome_arquivo = input('Digite o nome do arquivo que deseja acessar (DD-MM-AAAA.txt): ')
 dados = ler_arquivo(nome_arquivo)
 
 print()
