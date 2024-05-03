@@ -76,3 +76,6 @@ print()
 print('Páginas mais acessadas:')
 for pagina, acessos in pags_mais_acessadas(dados):
     print(f'Página: {pagina}: {acessos} acessos')
+
+print()
+
