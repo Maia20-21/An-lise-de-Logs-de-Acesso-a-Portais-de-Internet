@@ -78,3 +78,5 @@ for pagina, acessos in pags_mais_acessadas(dados):
     print(f'Página: {pagina}: {acessos} acessos')
 
 print()
+
+# Obs: para o programa funcionar, é necessário que os arquivos.txt estejam na mesma pasta que o código fonte
