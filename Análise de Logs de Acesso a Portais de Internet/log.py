@@ -56,6 +56,34 @@ def pags_mais_acessadas(registros):
     mais_acessadas = contagem_paginas.most_common(3)
     return mais_acessadas
 
+'''
+def mtbf(registros):
+    falhas = []
+#    horas = []
+    tempos_demorados = []
+    falhas_registros = {
+        'falha': [],
+        'hora': [],
+        'tempo_demorado': [],
+    }
+    for acesso in registros:
+        falha = int(acesso['sc-status'])
+        if falha < 200 or falha >= 400:
+            falhas.append(falha)
+            for 
+            falhas_registros['falha'].append(falha)
+            falhas_registros['hora'].append(acesso['time'])
+            falhas_registros['tempo_demorado'].append(float(acesso['time-taken']))
+
+#            hora = acesso['time']
+#            horas.append(hora)
+#            tempo_demorado = float(acesso['time-taken'])
+#            tempos_demorados.append(tempo_demorado)
+#            falhas_registros
+
+    return falhas_registros
+'''
+
 nome_arquivo = input('Digite o nome do arquivo que deseja acessar (DD-MM-AAAA.txt ou nome_do_arquivo.txt): ')
 dados = ler_arquivo(nome_arquivo)
 
@@ -78,5 +106,7 @@ for pagina, acessos in pags_mais_acessadas(dados):
     print(f'Página: {pagina}: {acessos} acessos')
 
 print()
+
+# print([mtbf(dados)])
 
 # Obs: para o programa funcionar, é necessário que os arquivos.txt estejam na mesma pasta que o código fonte
