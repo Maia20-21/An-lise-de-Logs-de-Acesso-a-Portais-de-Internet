@@ -56,33 +56,43 @@ def pags_mais_acessadas(registros):
     mais_acessadas = contagem_paginas.most_common(3)
     return mais_acessadas
 
-'''
-def mtbf(registros):
+def mtbf(registros):                                          # tempo total / número de falhas
     falhas = []
-#    horas = []
-    tempos_demorados = []
+    tempo_total = []
+    for acesso in registros:
+        status = int(acesso['sc-status'])
+        if status < 200 or status >= 400:
+            falhas.append(status)
+        tempo = float(acesso['time-taken'])
+        tempo_total.append(tempo)
+    return sum(tempo_total) / len(falhas)
+
+def mttr(registros):                                          # tempo total de manutenção / número de falhas
+    falhas = []
+    tempo_total = 0
+    for acesso in registros:
+        status = int(acesso['sc-status'])
+        if status < 200 or status >= 400:
+            falhas.append(status)
+            tempo = float(acesso['time-taken'])
+            tempo_total += tempo 
+    return tempo_total / len(falhas)
+  
+def falhas_momentos(registros):
     falhas_registros = {
         'falha': [],
         'hora': [],
-        'tempo_demorado': [],
+        'tempo_gasto': [],
     }
     for acesso in registros:
-        falha = int(acesso['sc-status'])
-        if falha < 200 or falha >= 400:
-            falhas.append(falha)
-            for 
-            falhas_registros['falha'].append(falha)
-            falhas_registros['hora'].append(acesso['time'])
-            falhas_registros['tempo_demorado'].append(float(acesso['time-taken']))
-
-#            hora = acesso['time']
-#            horas.append(hora)
-#            tempo_demorado = float(acesso['time-taken'])
-#            tempos_demorados.append(tempo_demorado)
-#            falhas_registros
-
+        status = int(acesso['sc-status'])
+        hora = acesso['time']
+        tempo_gasto = float(acesso['time-taken'])
+        if status < 200 or status >= 400:
+            falhas_registros['falha'].append(status)
+            falhas_registros['hora'].append(hora)
+            falhas_registros['tempo_gasto'].append(tempo_gasto)
     return falhas_registros
-'''
 
 nome_arquivo = input('Digite o nome do arquivo que deseja acessar (DD-MM-AAAA.txt ou nome_do_arquivo.txt): ')
 dados = ler_arquivo(nome_arquivo)
@@ -90,23 +100,29 @@ dados = ler_arquivo(nome_arquivo)
 print()
 
 print('RELATÓRIO DIÁRIO DE ACESSOS\n')
-
-print(f'Quantidade total de acessos diários: {acessos_diarios(dados)}\n')
-
+print(f'Quantidade total de acessos diários: {acessos_diarios(dados)} acessos\n')
 print(f'Tempo médio de resposta do servidor: {tempo_resposta(dados):.2f} milissegundos\n')
 
 print('Usuários mais ativos:')
 for usuario, acessos in usuarios_mais_ativos(dados):
     print(f'Usuário: {usuario}: {acessos} acessos')
-
 print()
 
 print('Páginas mais acessadas:')
 for pagina, acessos in pags_mais_acessadas(dados):
     print(f'Página: {pagina}: {acessos} acessos')
-
 print()
 
-# print([mtbf(dados)])
+print(f'MTBF (Tempo Médio entre Falhas): {mtbf(dados):.2f} milissegundos')
+print(f'MTTR (Tempo Médio de Reparação): {mttr(dados):.2f} milissegundos\n')
 
-# Obs: para o programa funcionar, é necessário que os arquivos.txt estejam na mesma pasta que o código fonte
+pergunta = input('Deseja conferir em quais momentos do dia em que ocorreram as falhas? (S ou N): ')
+if pergunta == 'S' or pergunta == 's':
+    print('HORÁRIO DAS FALHAS')
+    resultados_falhas = falhas_momentos(dados)
+    for i in range(len(resultados_falhas['falha'])):
+        print(f'Erro: {resultados_falhas["falha"][i]}, Horário: {resultados_falhas["hora"][i]}, Tempo gasto: {resultados_falhas["tempo_gasto"][i]} milissegundos')
+else: 
+    print()
+
+# Obs: para o programa funcionar, é necessário que os arquivos.txt estejam na mesma pasta que o código fonte
