@@ -118,7 +118,7 @@ print(f'MTTR (Tempo Médio de Reparação): {mttr(dados):.2f} milissegundos\n')
 
 pergunta = input('Deseja conferir em quais momentos do dia em que ocorreram as falhas? (S ou N): ')
 if pergunta == 'S' or pergunta == 's':
-    print('HORÁRIO DAS FALHAS')
+    print('HORÁRIO DAS FALHAS\n')
     resultados_falhas = falhas_momentos(dados)
     for i in range(len(resultados_falhas['falha'])):
         print(f'Erro: {resultados_falhas["falha"][i]}, Horário: {resultados_falhas["hora"][i]}, Tempo gasto: {resultados_falhas["tempo_gasto"][i]} milissegundos')
