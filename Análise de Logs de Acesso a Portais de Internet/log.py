@@ -55,28 +55,6 @@ def pags_mais_acessadas(registros):
     contagem_paginas = Counter(paginas)
     mais_acessadas = contagem_paginas.most_common(3)
     return mais_acessadas
-
-def mtbf(registros):                                          # tempo total / número de falhas
-    falhas = []
-    tempo_total = []
-    for acesso in registros:
-        status = int(acesso['sc-status'])
-        if status < 200 or status >= 400:
-            falhas.append(status)
-        tempo = float(acesso['time-taken'])
-        tempo_total.append(tempo)
-    return sum(tempo_total) / len(falhas)
-
-def mttr(registros):                                          # tempo total de manutenção / número de falhas
-    falhas = []
-    tempo_total = 0
-    for acesso in registros:
-        status = int(acesso['sc-status'])
-        if status < 200 or status >= 400:
-            falhas.append(status)
-            tempo = float(acesso['time-taken'])
-            tempo_total += tempo 
-    return tempo_total / len(falhas)
   
 def falhas_momentos(registros):
     falhas_registros = {
@@ -113,15 +91,12 @@ for pagina, acessos in pags_mais_acessadas(dados):
     print(f'Página: {pagina}: {acessos} acessos')
 print()
 
-print(f'MTBF (Tempo Médio entre Falhas): {mtbf(dados):.2f} milissegundos')
-print(f'MTTR (Tempo Médio de Reparação): {mttr(dados):.2f} milissegundos\n')
-
 pergunta = input('Deseja conferir em quais momentos do dia em que ocorreram as falhas? (S ou N): ')
 if pergunta == 'S' or pergunta == 's':
     print('HORÁRIO DAS FALHAS\n')
     resultados_falhas = falhas_momentos(dados)
     for i in range(len(resultados_falhas['falha'])):
-        print(f'Erro: {resultados_falhas["falha"][i]}, Horário: {resultados_falhas["hora"][i]}, Tempo gasto: {resultados_falhas["tempo_gasto"][i]} milissegundos')
+        print(f'Erro: {resultados_falhas["falha"][i]}, Horário: {resultados_falhas["hora"][i]}, Tempo de resposta do servidor: {resultados_falhas["tempo_gasto"][i]} milissegundos')
 else: 
     print()
 
