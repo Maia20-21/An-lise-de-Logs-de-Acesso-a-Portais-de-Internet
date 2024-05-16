@@ -1,8 +1,8 @@
 from collections import Counter
 
-def ler_arquivo(nome_arquivo):
+def ler_arquivo(nome_arquivo):          # função ler_arquivo(): leitura de um arquivo de log, retornando uma lista de registros
     registros = []
-    with open(nome_arquivo, 'r') as arquivo:
+    with open(nome_arquivo, 'r', encoding = "utf-8") as arquivo:
         linha = arquivo.readline()
         for linha in arquivo:
             parte = linha.strip().split('\t')
@@ -22,21 +22,21 @@ def ler_arquivo(nome_arquivo):
             registros.append(acesso)
     return registros
 
-def acessos_diarios(registros):
+def acessos_diarios(registros):          # função acessos_diarios(): calcula o número total de acessos diários
     datas = []
     for acesso in registros:
         data = acesso['date']
         datas.append(data)
     return len(datas)
 
-def tempo_resposta(registros):
+def tempo_resposta(registros):          # função tempo_resposta(): calcula o tempo médio de resposta do servidor
     tempos = []
     for acesso in registros:
         tempo = float(acesso['time-taken'])
         tempos.append(tempo)
     return sum(tempos) / len(tempos)
 
-def usuarios_mais_ativos(registros):
+def usuarios_mais_ativos(registros):          # função usuarios_mais_ativos(): identifica os três usuários mais ativos
     usuarios = []
     for acesso in registros:
         usuario = acesso['nomUsuarioSistema']
@@ -46,7 +46,7 @@ def usuarios_mais_ativos(registros):
     mais_ativos = contagem_usuarios.most_common(3)
     return mais_ativos
 
-def pags_mais_acessadas(registros):
+def pags_mais_acessadas(registros):          #  função pags_mais_acessadas: identifica as três páginas mais acessadas 
     paginas = []
     for acesso in registros:
         pagina = acesso['cs-uri']
@@ -56,7 +56,7 @@ def pags_mais_acessadas(registros):
     mais_acessadas = contagem_paginas.most_common(3)
     return mais_acessadas
   
-def falhas_momentos(registros):
+def falhas_momentos(registros):          # função falhas_momentos(): retorna as falhas ocorridas, como código de erro, horário e tempo de resposta do servidor
     falhas_registros = {
         'falha': [],
         'hora': [],
