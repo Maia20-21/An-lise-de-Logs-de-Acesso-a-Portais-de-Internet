@@ -1,6 +1,6 @@
 # Análise de Logs de Acesso do Portal de Internet
 
-Este é um programa em Python que analisa os logs de acesso de um portal de internet. Utilizando um arquivo de log do Apache, o programa extrai e analisa informações como data de acesso, URL acessada, status do acesso e identificador de usuário. O programa gera relatórios detalhados com base nesses dados.
+Programa em Python que analisa os logs de acesso de um portal de internet. Utilizando um arquivo de log do Apache, o programa extrai e analisa informações como data de acesso, URL acessada, status do acesso e identificador de usuário. No final, o programa gera um relatório detalhado com base nesses dados.
 
 ## Funcionalidades
 
@@ -11,7 +11,7 @@ Este é um programa em Python que analisa os logs de acesso de um portal de inte
     1. **Relatório Diário de Acessos:**
         - Calcula e exibe a quantidade total de acessos por dia.
     2. **Tempo Médio de Resposta:**
-        - Calcula o tempo médio de resposta do servidor, assumindo que esta informação pode ser simulada ou extraída, se disponível no log.
+        - Calcula o tempo médio de resposta do servidor.
     3. **Usuários Mais Ativos:**
         - Identifica e lista os usuários que mais acessaram o portal no período dos logs fornecidos.
     4. **Páginas Mais Acessadas:**
